@@ -14,9 +14,9 @@ class TestServer3(unittest.TestCase):
     def setUp(self):
         """Set up a server that listens for connections."""
         self.server_ip = '127.0.0.1'
-        self.server_port = 65432
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.server_socket.bind((self.server_ip, self.server_port))
+        self.server_socket.bind((self.server_ip, 0))  # Let OS choose an available port
+        self.server_port = self.server_socket.getsockname()[1]  # Get the assigned port
         self.server_socket.listen(1)
 
     def tearDown(self):
